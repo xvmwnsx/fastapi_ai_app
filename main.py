@@ -1,8 +1,16 @@
-from fastapi import FastAPI
-from pydantic import BaseModel
+from fastapi import FastAPI, Body
+from grop_client import get_response
 
 app = FastAPI()
 
 @app.get("/requests")
 def get_requests():
-    return {"data": task}
+    return "Hello World"
+
+@app.post("/requests")
+def send_prompt(
+    input: str = Body(embed=True)
+):
+    answer = get_response(input)
+    return {"answer": answer}
+    
